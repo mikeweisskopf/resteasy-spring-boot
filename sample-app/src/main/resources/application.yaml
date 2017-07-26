@@ -1,9 +1,0 @@
-resteasy:
-  jaxrs:
-    app:
-      registration: property
-      classes: com.sample.app.JaxrsApplication
-server:
-  tomcat:
-    min-spare-threads: 25
-    max-threads: 40
