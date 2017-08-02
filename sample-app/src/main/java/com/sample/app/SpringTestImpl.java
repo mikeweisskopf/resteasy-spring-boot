@@ -3,6 +3,7 @@ package com.sample.app;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Note : Please delete SampleResourceImpl before going to live.
  */
 
-
+@Component
 @Scope("request")
 public class SpringTestImpl implements SpringTest {
 
