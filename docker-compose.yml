@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  sb133:
+  sb153:
     image: ${dockerimage}
     ports:
       - 14856:8443
@@ -15,8 +15,8 @@ services:
 
   jmeterload:
     image: dockerhub.paypalcorp.com/middleware-platform/jmeterwithplugins:3.1
-    command: ["-t", "/jmeterdata/script.onlySpringBoot_SimpleHello.jmx", "-l", "/jmeterdata/${testname}.jtl", "-j", "/jmeterdata/jmeter.log", "-JUsers=40", "-JdurationTime=${duration}", "-JhostName1=sb133", "-Jport=8080", "-Jprotocol=http", "-JhostName2=mockservice"]
+    command: ["-t", "/jmeterdata/script.onlySpringBoot_SimpleHello.jmx", "-l", "/jmeterdata/${testname}.jtl", "-j", "/jmeterdata/jmeter.log", "-JUsers=40", "-JdurationTime=${duration}", "-JhostName1=sb153", "-Jport=8080", "-Jprotocol=http", "-JhostName2=mockservice"]
     volumes:
       - ./testdata:/jmeterdata
     depends_on:
-      - sb133
+      - sb153
