@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  sb133:
+    image: ${dockerimage}
+    ports:
+      - 14856:8443
+      - 14858:8080
+      - 14860:14860
+    environment:
+      - JVM_ARGS=-XX:MaxDirectMemorySize=1024m -Xmn800m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xms2200m -Xmx2200m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/lnpdata -Dsun.net.inetaddr.ttl=60 -Dnetworkaddress.cache.ttl=60 -Dfile.encoding=UTF-8 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=14860
+    volumes:
+      - ./testdata:/lnpdata
+    restart: always
+
+  jmeterload:
+    image: dockerhub.paypalcorp.com/middleware-platform/jmeterwithplugins:3.1
+    command: ["-t", "/jmeterdata/script.onlySpringBoot_SimpleHello.jmx", "-l", "/jmeterdata/${testname}.jtl", "-j", "/jmeterdata/jmeter.log", "-JUsers=40", "-JdurationTime=${duration}", "-JhostName1=sb133", "-Jport=8080", "-Jprotocol=http", "-JhostName2=mockservice"]
+    volumes:
+      - ./testdata:/jmeterdata
+    depends_on:
+      - sb133
